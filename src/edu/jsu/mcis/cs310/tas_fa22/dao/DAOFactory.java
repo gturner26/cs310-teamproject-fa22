@@ -10,7 +10,7 @@ public final class DAOFactory {
 
     private final String url, username, password;
     
-    private Connection conn = null;
+    private Connection conn = null; //AHO I dont know what this is.
 
     public DAOFactory(String prefix) {
 
