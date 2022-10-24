@@ -6,97 +6,97 @@ import java.time.temporal.*;
 
 public class Shift {
     
-    private int id;
-    private int interval;
-    private int graceperiod;
-    private int lunchdeduct;
-    private int dock;
-    private int lunchduration;
-    private int shiftduration;
+    private final int id;
+    private final int roundinterval, graceperiod, lunchthreshold, dockpenalty;
+    private final int lunchduration, shiftduration;
+    private final String description;
     
-    private String description;
-    
-    private LocalTime start;
-    private LocalTime stop;
-    private LocalTime lunchstart;
-    private LocalTime lunchstop;
+    private final LocalTime shiftstart, shiftstop, lunchstart, lunchstop;
     
     
-    public Shift(int id, int interval,int graceperiod,int lunchdeduct,int dock,int lunchduration,int shiftduration,String description,String start,String stop,String lunchstop,String lunchstart){
+    public Shift(Map<String, String> p) {
     
-        this.id = id;
-        this.interval = interval;
-        this.graceperiod = graceperiod;
-        this.lunchdeduct = lunchdeduct;
-        this.dock = dock;
-        this.lunchduration = lunchduration;
-        this.shiftduration = shiftduration;
+        //THIS CODE IS NOT FINISHED, AMELIA IS WORKING ON IT FROM WHAT SNELLEN
+        //TOLD HER
+        this.id = Integer.parseInt(p.get("id"));
+        //this.interval = interval;
+        //this.graceperiod = graceperiod;
+        //this.lunchdeduct = lunchdeduct;
+        //this.dock = dock;
         
-        this.description = description;
+        this.description = p.get("description");
         
-        this.start = LocalTime.parse(start);
-        this.stop = LocalTime.parse(stop);
+        this.shiftstart = LocalTime.parse(p.get("shiftstart"));
+        this.shiftstop = LocalTime.parse(p.get("shiftstop"));
         
-        this.lunchstop = LocalTime.parse(lunchstop);
-        this.lunchstart = LocalTime.parse(lunchstart);
+        this.lunchstart = LocalTime.parse(p.get("lunchstart"));
+        this.lunchstop = LocalTime.parse(p.get("lunchstop"));
         
-        GregorianCalendar stopCalendar = new GregorianCalendar();
-        GregorianCalendar startCalendar = new GregorianCalendar();
+        this.lunchduration = (int)ChronoUnit.MINUTES.between(lunchstart, lunchstop);
+        this.shiftduration = (int)ChronoUnit.MINUTES.between(shiftstart, shiftstop);
         
-        stopCalendar.set(0,0,0, this.lunchstop.getHour(),this.lunchstop.getMinute(), this.lunchstop.getSecond());
-        startCalendar.set(0,0,0, this.lunchstart.getHour(),this.lunchstart.getMinute(), this.lunchstart.getSecond());
-        
-        this.lunchduration = (int) (stopCalendar.getTimeInMillis() - startCalendar.getTimeInMillis());
-        this.lunchduration = this.lunchduration/60000;
-        this.lunchdeduct = lunchdeduct;
     }
-     
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    public int getInterval(){
-        return interval;
+
+    public int getRoundinterval() {
+        return roundinterval;
     }
-    public int getGraceperiod(){
+
+    public int getGraceperiod() {
         return graceperiod;
     }
-    public int getLunchdeduct(){
-        return lunchdeduct;
+
+    public int getLunchthreshold() {
+        return lunchthreshold;
     }
-    public int geDock(){
-        return dock;
+
+    public int getDockpenalty() {
+        return dockpenalty;
     }
-    public int getLunchduration(){
+
+    public int getLunchduration() {
         return lunchduration;
     }
-    public int getShiftduration(){
+
+    public int getShiftduration() {
         return shiftduration;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public LocalTime getStart(){
-        return start;
+
+    public LocalTime getShiftstart() {
+        return shiftstart;
     }
-    public LocalTime getStop(){
-        return stop;
+
+    public LocalTime getShiftstop() {
+        return shiftstop;
     }
-    public LocalTime getLunchstop(){
-        return lunchstop;
-    }
-    public LocalTime getLunchstart(){
+
+    public LocalTime getLunchstart() {
         return lunchstart;
+    }
+
+    public LocalTime getLunchstop() {
+        return lunchstop;
     }
     
     @Override
     public String toString(){
+        
         StringBuilder s = new StringBuilder();
         
-        s.append(description).append(": ").append(start).append(" - ").append(stop);
-        s.append(" (").append(start.until(stop, ChronoUnit.MINUTES)).append(" minutes);");
+        s.append(description).append(": ").append(shiftstart).append(" - ").append(shiftstop);
+        s.append(" (").append(shiftduration).append(" minutes);");
         s.append(" Lunch: ").append(lunchstart).append(" - ").append(lunchstop);
-        s.append(" (" ).append(lunchstart.until(lunchstop, ChronoUnit.MINUTES)).append(" minutes)");
+        s.append(" (" ).append(lunchduration).append(" minutes)");
         
         return(s.toString() );
+        
     }
+    
 }
