@@ -14,13 +14,22 @@ public class Punch {
     
     private LocalDateTime originalTimeStamp;
     private LocalDateTime adjustedTimeStamp;
+    private LocalDateTime dateTime;
+    private int getPunchTypeID;
     
     
-    public Punch(Integer terminalID, Badge badge, EventType punchtype){
+    public Punch(Integer terminalid, Badge badge, EventType punchtype){
         this.terminalID = terminalID;
         this.badge = badge;
         this.punchtype = punchtype;
-        this.id = null;
+        
+        
+    }
+    
+    public Punch(Integer id, int terminalid, Badge badge, LocalDateTime orginalTimeStamp, EventType punchtype){
+        this.terminalID = terminalID;
+        this.badge = badge;
+        this.punchtype = punchtype;
         this.originalTimeStamp = LocalDateTime.now();
         this.adjustedTimeStamp = null;
         
@@ -31,8 +40,8 @@ public class Punch {
         return terminalID;
     }
 
-    public String getBadgeID() {
-        return badgeID;
+    public Badge getBadgeID() {
+        return badge;
     }
 
     public EventType getPunchtype() {
@@ -43,16 +52,16 @@ public class Punch {
         return AdjustmentType;
     }
 
-    public long getAdjustedTimeStamp() {
+    public LocalDateTime getAdjustedTimeStamp() {
         return adjustedTimeStamp;
     }
 
-    public long getOgTime() {
-        return ogTime;
+    public LocalDateTime getOriginalTimeStamp() {
+        return originalTimeStamp;
     }
 
-    public Integer getPunchTypeID() {
-        return punchTypeID;
+    public EventType getPunchType() {
+        return punchtype;
     }
 
     public LocalDateTime getDateTime() {
@@ -66,16 +75,16 @@ public class Punch {
         
 
         
-        LocalDateTime calendar = new LocalDateTime();
+        LocalDateTime calendar = null;
         
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         
-        if(this.getPunchTypeID() == 1){
-            string.append("#" + this.getBadgeID() + " CLOCKED IN: " + formatter.format(date).toUpperCase());
+        if(this.getPunchTypeID == 1){
+            string.append("#" + this.getBadgeID() + " CLOCKED IN: " + formatter.format(calendar).toUpperCase());
         }
         
        //after code is finished, add a return statement to fix issue
-    }
+    } 
     
     
     
