@@ -40,8 +40,8 @@ public class Punch {
         return terminalID;
     }
 
-    public Badge getBadgeID() {
-        return badge;
+    public Integer getID() {
+        return id;
     }
 
     public EventType getPunchtype() {
@@ -56,16 +56,12 @@ public class Punch {
         return adjustedTimeStamp;
     }
 
-    public LocalDateTime getOriginalTimeStamp() {
-        return originalTimeStamp;
-    }
-
-    public EventType getPunchType() {
+    public EventType getpunchtype() {
         return punchtype;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getLocalDateTime() {
+        return LocalDateTime;
     }
     
     
@@ -73,9 +69,7 @@ public class Punch {
     public String printOriginal(){
         StringBuilder string = new StringBuilder();
         
-
-        
-        LocalDateTime calendar = null;
+        LocalDateTime calendar = new LocalDateTime();
         
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         
