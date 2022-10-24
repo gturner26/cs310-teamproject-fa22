@@ -31,8 +31,8 @@ public class Punch {
         return terminalID;
     }
 
-    public String getBadgeID() {
-        return badgeID;
+    public Integer getID() {
+        return id;
     }
 
     public EventType getPunchtype() {
@@ -43,28 +43,22 @@ public class Punch {
         return AdjustmentType;
     }
 
-    public long getAdjustedTimeStamp() {
+    public LocalDateTime getAdjustedTimeStamp() {
         return adjustedTimeStamp;
     }
 
-    public long getOgTime() {
-        return ogTime;
+    public EventType getpunchtype() {
+        return punchtype;
     }
 
-    public Integer getPunchTypeID() {
-        return punchTypeID;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getLocalDateTime() {
+        return LocalDateTime;
     }
     
     
     
     public String printOriginal(){
         StringBuilder string = new StringBuilder();
-        
-
         
         LocalDateTime calendar = new LocalDateTime();
         
