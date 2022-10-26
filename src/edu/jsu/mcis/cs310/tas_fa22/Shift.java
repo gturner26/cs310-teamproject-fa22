@@ -6,8 +6,7 @@ import java.time.temporal.*;
 
 public class Shift {
     
-    private final int id;
-    private final int roundinterval, graceperiod, lunchthreshold, dockpenalty;
+    private final int id, roundinterval, graceperiod, lunchthreshold, dockpenalty;
     private final int lunchduration, shiftduration;
     private final String description;
     
@@ -16,13 +15,11 @@ public class Shift {
     
     public Shift(Map<String, String> p) {
     
-        //THIS CODE IS NOT FINISHED, AMELIA IS WORKING ON IT FROM WHAT SNELLEN
-        //TOLD HER
         this.id = Integer.parseInt(p.get("id"));
-        //this.interval = interval;
-        //this.graceperiod = graceperiod;
-        //this.lunchdeduct = lunchdeduct;
-        //this.dock = dock;
+        this.roundinterval = Integer.parseInt(p.get("roundinterval"));
+        this.graceperiod = Integer.parseInt(p.get("graceperiod"));
+        this.lunchthreshold = Integer.parseInt(p.get("lunchthreshold"));
+        this.dockpenalty = Integer.parseInt(p.get("dockpenalty"));
         
         this.description = p.get("description");
         
