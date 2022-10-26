@@ -81,24 +81,32 @@ public class Punch {
         return getPunchTypeID;
     }
     
+    public void adjust(Shift s){
+    
+    }
     
     
     
+    public StringBuilder printOriginal(){
+        StringBuilder string = new StringBuilder();
+        
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        
+        if(this.getPunchTypeID == 1){
+            string.append("#" + this.getPunchTypeID + " CLOCKED IN: " +
+                formatter.format(LocalDateTime.now()).toUpperCase());
+        }
+        
+        if(this.getPunchTypeID == 0){
+            string.append("#" + this.getPunchTypeID + " CLOCKED OUT: " +
+                formatter.format(LocalDateTime.now()).toUpperCase());
+        }
+        
+       //after code is finished, add a return statement to fix issue
+        return string;
+    } 
     
-//    public String printOriginal(){
-//        StringBuilder string = new StringBuilder();
-//        
-//        LocalDateTime calendar = new LocalDateTime();
-//        
-//        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-//        
-//        if(this.getPunchTypeID == 1){
-//            string.append("#" + this.getBadgeID() + " CLOCKED IN: " + formatter.format(calendar).toUpperCase());
-//        }
-//        
-//       //after code is finished, add a return statement to fix issue
-//    } 
-//    
     
     
     
