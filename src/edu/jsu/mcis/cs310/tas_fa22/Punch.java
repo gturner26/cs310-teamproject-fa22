@@ -10,7 +10,7 @@ public class Punch {
     private Integer terminalID;
     private Badge badge;
     private EventType punchtype;
-    private String AdjustmentType;
+    private PunchAdjustmentType AdjustmentType;
     
     private LocalDateTime originalTimeStamp;
     private LocalDateTime adjustedTimeStamp;
@@ -22,7 +22,8 @@ public class Punch {
         this.terminalID = terminalID;
         this.badge = badge;
         this.punchtype = punchtype;
-        
+        id = null;
+        adjustedTimeStamp = null;
         
     }
     
@@ -48,7 +49,7 @@ public class Punch {
         return punchtype;
     }
 
-    public String getAdjustmentType() {
+    public PunchAdjustmentType getAdjustmentType() {
         return AdjustmentType;
     }
 
@@ -60,26 +61,44 @@ public class Punch {
         return punchtype;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return LocalDateTime;
+    public Integer getId() {
+        return id;
+    }
+
+    public Badge getBadge() {
+        return badge;
+    }
+
+    public LocalDateTime getOriginalTimeStamp() {
+        return originalTimeStamp;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public int getGetPunchTypeID() {
+        return getPunchTypeID;
     }
     
     
     
-    public String printOriginal(){
-        StringBuilder string = new StringBuilder();
-        
-        LocalDateTime calendar = new LocalDateTime();
-        
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        
-        if(this.getPunchTypeID == 1){
-            string.append("#" + this.getBadgeID() + " CLOCKED IN: " + formatter.format(calendar).toUpperCase());
-        }
-        
-       //after code is finished, add a return statement to fix issue
-    } 
     
+    
+//    public String printOriginal(){
+//        StringBuilder string = new StringBuilder();
+//        
+//        LocalDateTime calendar = new LocalDateTime();
+//        
+//        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+//        
+//        if(this.getPunchTypeID == 1){
+//            string.append("#" + this.getBadgeID() + " CLOCKED IN: " + formatter.format(calendar).toUpperCase());
+//        }
+//        
+//       //after code is finished, add a return statement to fix issue
+//    } 
+//    
     
     
     
