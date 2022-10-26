@@ -40,7 +40,7 @@ public class PunchDAO {
                     while (rs.next()){
                         
                         String description = rs.getString("description");
-                        punch = new Punch(id, description);
+                        punch = new Punch(badge, punchtype);
                         
                     }
                 }

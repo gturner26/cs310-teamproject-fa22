@@ -10,17 +10,27 @@ public class Punch {
     private Integer terminalID;
     private Badge badge;
     private EventType punchtype;
-    private String AdjustmentType;
+    private PunchAdjustmentType AdjustmentType;
     
     private LocalDateTime originalTimeStamp;
     private LocalDateTime adjustedTimeStamp;
+    private LocalDateTime dateTime;
+    private int getPunchTypeID;
     
     
-    public Punch(Integer terminalID, Badge badge, EventType punchtype){
+    public Punch(Integer terminalid, Badge badge, EventType punchtype){
         this.terminalID = terminalID;
         this.badge = badge;
         this.punchtype = punchtype;
-        this.id = null;
+        id = null;
+        adjustedTimeStamp = null;
+        
+    }
+    
+    public Punch(Integer id, int terminalid, Badge badge, LocalDateTime orginalTimeStamp, EventType punchtype){
+        this.terminalID = terminalID;
+        this.badge = badge;
+        this.punchtype = punchtype;
         this.originalTimeStamp = LocalDateTime.now();
         this.adjustedTimeStamp = null;
         
@@ -31,52 +41,64 @@ public class Punch {
         return terminalID;
     }
 
-    public String getBadgeID() {
-        return badgeID;
+    public Integer getID() {
+        return id;
     }
 
     public EventType getPunchtype() {
         return punchtype;
     }
 
-    public String getAdjustmentType() {
+    public PunchAdjustmentType getAdjustmentType() {
         return AdjustmentType;
     }
 
-    public long getAdjustedTimeStamp() {
+    public LocalDateTime getAdjustedTimeStamp() {
         return adjustedTimeStamp;
     }
 
-    public long getOgTime() {
-        return ogTime;
+    public EventType getpunchtype() {
+        return punchtype;
     }
 
-    public Integer getPunchTypeID() {
-        return punchTypeID;
+    public Integer getId() {
+        return id;
+    }
+
+    public Badge getBadge() {
+        return badge;
+    }
+
+    public LocalDateTime getOriginalTimeStamp() {
+        return originalTimeStamp;
     }
 
     public LocalDateTime getDateTime() {
         return dateTime;
     }
-    
-    
-    
-    public String printOriginal(){
-        StringBuilder string = new StringBuilder();
-        
 
-        
-        LocalDateTime calendar = new LocalDateTime();
-        
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        
-        if(this.getPunchTypeID() == 1){
-            string.append("#" + this.getBadgeID() + " CLOCKED IN: " + formatter.format(date).toUpperCase());
-        }
-        
-       //after code is finished, add a return statement to fix issue
+    public int getGetPunchTypeID() {
+        return getPunchTypeID;
     }
     
+    
+    
+    
+    
+//    public String printOriginal(){
+//        StringBuilder string = new StringBuilder();
+//        
+//        LocalDateTime calendar = new LocalDateTime();
+//        
+//        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+//        
+//        if(this.getPunchTypeID == 1){
+//            string.append("#" + this.getBadgeID() + " CLOCKED IN: " + formatter.format(calendar).toUpperCase());
+//        }
+//        
+//       //after code is finished, add a return statement to fix issue
+//    } 
+//    
     
     
     
