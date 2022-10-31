@@ -73,4 +73,11 @@ public class PunchDAO {
         
         return punch;
     }
+    public Punch create(){
+        
+        
+        
+        //change this later
+        return punch;
+    }
 }
