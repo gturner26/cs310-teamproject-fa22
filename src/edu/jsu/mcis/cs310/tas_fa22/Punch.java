@@ -79,6 +79,7 @@ public class Punch {
     }
     
     public void adjust(Shift s){
+        
     
     }
     
@@ -102,6 +103,4 @@ public class Punch {
         
        //after code is finished, add a return statement to fix issue
         return string;
-    } 
-    
-}
+    }}
