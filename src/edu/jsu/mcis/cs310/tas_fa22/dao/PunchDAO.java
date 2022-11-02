@@ -73,4 +73,12 @@ public class PunchDAO {
         
         return punch;
     }
+    public Punch create(){
+        //write code to see if terminal id matchespunch originated from matches 
+        //the ID of the designated clock terminal of the employee's department
+        
+        
+        //change this later
+        return punch;
+    }
 }
