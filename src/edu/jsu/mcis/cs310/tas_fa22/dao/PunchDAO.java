@@ -89,82 +89,12 @@ public class PunchDAO {
         
         return punch;
     }
-    public ArrayList list(Badge badge, LocalDate date) {
-        ArrayList<Punch> list = new ArrayList();
+    public Punch create(){
+        //write code to see if terminal id matchespunch originated from matches 
+        //the ID of the designated clock terminal of the employee's department
         
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        try {
-
-            Connection conn = daoFactory.getConnection();
-
-            if (conn.isValid(0)) {
-
-                ps = conn.prepareStatement(QUERY_LIST);
-                ps.setString(1, badge.getId());
-
-                boolean hasresults = ps.execute();
-
-                if (hasresults) {
-
-                    rs = ps.getResultSet();
-
-                    while (rs.next()) {
-                        
-                        Timestamp punchdate = rs.getTimestamp(4);
-                        LocalDateTime local = punchdate.toLocalDateTime();
-                        LocalDate ld = local.toLocalDate();
-                        boolean isclosed = false;
-                        Punch last = null;
-                        
-                        if (ld.equals(date)) {
-                            int id = rs.getInt(1);
-                            last = find(id);
-                            list.add(last);
-                        } else if ((!isclosed) && (ld.isAfter(date)) && (last != null) && 
-                                (last.getPunchtype() == EventType.CLOCK_IN)) {
-                            int id = rs.getInt(1);
-                            list.add(find(id));
-                            isclosed = true;
-                        }
-                        
-                    }
-
-                }
-
-            }
-
-        } catch (SQLException e) {
-
-            throw new DAOException(e.getMessage());
-
-        } finally {
-
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage());
-                }
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage());
-                }
-            }
-
-        }
         
-        // testing
-        for (Punch p : list) {
-            System.out.println(p.toString());
-        }
-        
-        return list;
-        
-
+        //change this later
+        return punch;
     }
 }
