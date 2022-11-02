@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 
 
-public class Punch {
+//public class Punch {
     private Integer id, terminalID, getPunchTypeID;
     private Badge badge;
     private EventType punchtype;
