@@ -41,14 +41,14 @@ public class ShiftDAO {
 
                      while (rs.next()) {
                         
-                        Hashmap<String, String> HashMap = new map<>();
-                        hashmap.put("id", rs.getString("id"));
-                        hashmap.put("description", rs.getString("description"));
-                        hashmap.put("startTime", rs.getString("shiftstart"));
-                        hashmap.put("stopTime", rs.getString("shiftstop"));
-                        hashmap.put("lunchStart", rs.getString("lunchstart"));
-                        hashmap.put("lunchStop", rs.getString("lunchstop"));
-                        shift = new Shift(hashmap);
+                        HashMap<String, String> HashMap = new HashMap<>();
+                        HashMap.put("id", rs.getString("id"));
+                        HashMap.put("description", rs.getString("description"));
+                        HashMap.put("startTime", rs.getString("shiftstart"));
+                        HashMap.put("stopTime", rs.getString("shiftstop"));
+                        HashMap.put("lunchStart", rs.getString("lunchstart"));
+                        HashMap.put("lunchStop", rs.getString("lunchstop"));
+                        shift = new Shift(HashMap);
                     }
                 }
             }
