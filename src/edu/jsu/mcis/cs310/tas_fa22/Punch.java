@@ -5,34 +5,28 @@ import java.time.LocalDateTime;
 
 
 
-public class Punch {
-    private Integer id;
-    private Integer terminalID;
+//public class Punch {
+    private Integer id, terminalID, getPunchTypeID;
     private Badge badge;
     private EventType punchtype;
     private PunchAdjustmentType AdjustmentType;
-    
-    private LocalDateTime originalTimeStamp;
-    private LocalDateTime adjustedTimeStamp;
-    private LocalDateTime dateTime;
-    private int getPunchTypeID;
-    
+    private LocalDateTime originalTimeStamp, dateTime, adjustedTimeStamp;
+    private String description;
+   
     
     public Punch(Integer terminalid, Badge badge, EventType punchtype){
-        this.terminalID = terminalID;
+        this.id = null;
+        this.terminalID = terminalid;
         this.badge = badge;
-        this.punchtype = punchtype;
-        id = null;
-        adjustedTimeStamp = null;
-        
+        this.punchtype = punchtype;  
     }
     
     public Punch(Integer id, int terminalid, Badge badge, LocalDateTime orginalTimeStamp, EventType punchtype){
+        this.id = id;
         this.terminalID = terminalID;
         this.badge = badge;
         this.punchtype = punchtype;
-        this.originalTimeStamp = LocalDateTime.now();
-        this.adjustedTimeStamp = null;
+        this.originalTimeStamp = originalTimeStamp;
         
     }
 //New Punch will add id and timestamp as arguments
@@ -77,8 +71,11 @@ public class Punch {
         return dateTime;
     }
 
-    public int getGetPunchTypeID() {
+    public int getPunchTypeID() {
         return getPunchTypeID;
+    }
+    public String getdescription(){
+        return description;
     }
     
     public void adjust(Shift s){
