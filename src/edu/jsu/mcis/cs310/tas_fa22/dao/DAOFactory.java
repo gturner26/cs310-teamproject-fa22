@@ -44,4 +44,7 @@ public final class DAOFactory {
         return new ShiftDAO(this);
     }
 
+    public DepartmentDAO getDepartmentDAO(){
+        return new DepartmentDAO(this);
+    }
 }
