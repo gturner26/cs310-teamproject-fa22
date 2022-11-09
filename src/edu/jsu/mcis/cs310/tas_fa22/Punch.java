@@ -2,110 +2,81 @@ package edu.jsu.mcis.cs310.tas_fa22;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 
 public class Punch {
-    private Integer id, terminalID, getPunchTypeID;
-    private Badge badge;
-    private EventType punchtype;
-    private PunchAdjustmentType AdjustmentType;
-    private LocalDateTime originalTimeStamp, dateTime, adjustedTimeStamp;
-    private String description;
-   
     
-    public Punch(Integer terminalid, Badge badge, EventType punchtype){
+    private final Integer id, terminalid;
+    private final Badge badge;
+    private final EventType eventtype;
+    private final LocalDateTime originaltimestamp;
+    
+    private LocalDateTime adjustedtimestamp;
+    private PunchAdjustmentType adjustmenttype;
+    
+    public Punch(Integer terminalid, Badge badge, EventType eventtype) {
+        
         this.id = null;
-        this.terminalID = terminalid;
+        this.terminalid = terminalid;
         this.badge = badge;
-        this.punchtype = punchtype;  
-    }
-    
-    public Punch(Integer id, int terminalid, Badge badge, LocalDateTime orginalTimeStamp, EventType punchtype){
-        this.id = id;
-        this.terminalID = terminalID;
-        this.badge = badge;
-        this.punchtype = punchtype;
-        this.originalTimeStamp = originalTimeStamp;
+        this.eventtype = eventtype;
+        this.originaltimestamp = LocalDateTime.now();
         
     }
-//New Punch will add id and timestamp as arguments
     
-    public Integer getTerminalID() {
-        return terminalID;
-    }
-
-    public Integer getID() {
-        return id;
-    }
-
-    public EventType getPunchtype() {
-        return punchtype;
-    }
-
-    public PunchAdjustmentType getAdjustmentType() {
-        return AdjustmentType;
-    }
-
-    public LocalDateTime getAdjustedTimeStamp() {
-        return adjustedTimeStamp;
-    }
-
-    public EventType getpunchtype() {
-        return punchtype;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public Badge getBadge() {
-        return badge;
-    }
-
-    public LocalDateTime getOriginalTimeStamp() {
-        return originalTimeStamp;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public int getPunchTypeID() {
-        return getPunchTypeID;
-    }
-    public String getdescription(){
-        return description;
+    public Punch(Integer id, int terminalid, Badge badge, LocalDateTime timestamp, EventType punchtype) {
+        
+        this.id = id;
+        this.terminalid = terminalid;
+        this.badge = badge;
+        this.eventtype = punchtype;
+        this.originaltimestamp = timestamp;
+        
     }
     
-    public void adjust(Shift s){
+    public void adjust(Shift s) {
+        
         //s.getLunchstart(); 
     
     }
+
+    @Override
+    public String toString() {
+        return printOriginal();
+    }
     
+    public String printOriginal() {
+        
+        // "#D2C39273 CLOCK IN: WED 09/05/2018 07:00:07"
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE MM/dd/yyyy HH:mm:ss");
+        
+        StringBuilder s = new StringBuilder();
+        
+        s.append('#').append(badge.getId()).append(' ').append(eventtype);
+        s.append(": ").append(dtf.format(originaltimestamp).toUpperCase());
+        
+        return s.toString().trim();
+        
+    }
     
-    
-    public StringBuilder printOriginal(){
-        StringBuilder string = new StringBuilder();
+    public String printAdjusted() {
         
+        // "#28DC3FB8 CLOCK IN: FRI 09/07/2018 07:00:00 (Shift Start)"
         
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE MM/dd/yyyy HH:mm:ss");
         
-        if(this.getPunchTypeID == 1){
-            string.append("#" + this.getPunchTypeID + " CLOCKED IN: " +
-                formatter.format(LocalDateTime.now()).toUpperCase());
-        }
+        StringBuilder s = new StringBuilder();
         
-        if(this.getPunchTypeID == 0){
-            string.append("#" + this.getPunchTypeID + " CLOCKED OUT: " +
-                formatter.format(LocalDateTime.now()).toUpperCase());
-        }
+        s.append('#').append(badge.getId()).append(' ').append(eventtype);
+        s.append(": ").append(dtf.format(adjustedtimestamp).toUpperCase());
+        s.append(" (").append(adjustmenttype).append(')');
         
-       //after code is finished, add a return statement to fix issue
-        return string;
-    } 
-    
-    
+        return s.toString().trim();
+        
+    }
     
     
     

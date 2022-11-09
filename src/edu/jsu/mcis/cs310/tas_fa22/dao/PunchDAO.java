@@ -2,9 +2,6 @@ package edu.jsu.mcis.cs310.tas_fa22.dao;
 
 import edu.jsu.mcis.cs310.tas_fa22.*;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class PunchDAO {
@@ -42,22 +39,18 @@ public class PunchDAO {
                     
                     rs = ps.getResultSet();
                     
-                    while (rs.next()){
+                    while (rs.next()) {
                         
-                        Integer terminalid;
-                        String badgeid;
-                        EventType punchtype;
-                        LocalDateTime originaltimestamp;
+                        int terminalid = rs.getInt("terminalid");
                         
-                        terminalid = rs.getInt("terminalid");
-                        
-                        badgeid = rs.getString("badgeid");
+                        String badgeid = rs.getString("badgeid");
                         BadgeDAO badgeDAO = daoFactory.getBadgeDAO();
                         Badge b = badgeDAO.find(badgeid);
                         
-                        punchtype = EventType.values()[rs.getInt("eventtypeid")];
-                        originaltimestamp = rs.getTimestamp("timestamp").toLocalDateTime();
-                        punch = new Punch(id, terminalid, b, originaltimestamp, punchtype);
+                        EventType eventtype = EventType.values()[rs.getInt("eventtypeid")];
+                        LocalDateTime originaltimestamp = rs.getTimestamp("timestamp").toLocalDateTime();
+                        punch = new Punch(id, terminalid, b, originaltimestamp, eventtype);
+                        
                     }
                 }
             }

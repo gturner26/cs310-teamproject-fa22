@@ -7,7 +7,7 @@ import java.util.*;
 
 public class DepartmentDAO {
     
-    private static final String QUERY_FIND = "SELECT * FROM shift WHERE id = ?";
+    private static final String QUERY_FIND = "SELECT * FROM department WHERE id = ?";
     
     private final DAOFactory daoFactory;
     
@@ -42,16 +42,19 @@ public class DepartmentDAO {
                      while (rs.next()) {
                         
                         HashMap<String, String> HashMap = new HashMap<>();
+                        
                         HashMap.put("id", rs.getString("id"));
                         HashMap.put("description", rs.getString("description"));
-                        HashMap.put("terminalID", rs.getString("terminalID"));
+                        HashMap.put("terminalid", rs.getString("terminalid"));
+                        
                         department = new Department(HashMap);
+                        
                     }
                 }
             }
         }
         
-                  catch (SQLException e) {
+        catch (SQLException e) {
 
             throw new DAOException(e.getMessage());
 

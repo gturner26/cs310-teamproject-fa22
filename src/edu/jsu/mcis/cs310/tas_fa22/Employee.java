@@ -1,72 +1,59 @@
 package edu.jsu.mcis.cs310.tas_fa22;
 
 import java.time.LocalDateTime;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
 
 public class Employee {
-    private String id;
-    private String firstname, middlename, lastname;
+    
+    private final int id;
+    private final String firstname, middlename, lastname, employeetype;
+    private final LocalDateTime active, inactive;
+    
     private Badge badge;
-    private LocalDateTime active;
-    private Department department; //if there is an error it doesn't exist yet
-    private Employee employee;
+    private Department department;
     private Shift shift;
 
-    public Employee(HashMap map) {
-        this.id = id;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.badge = badge;
-        this.active = active;
-        this.department = department;
-        this.employee = employee;
-        this.shift = shift;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getMiddlename() {
-        return middlename;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public Badge getBadge() {
-        return badge;
-    }
-
-    public LocalDateTime getActive() {
-        return active;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public Employee getEmployee() {
-        return employee;
+    public Employee(Map params) {
+        
+        this.id = Integer.parseInt(params.get("id").toString());
+        this.firstname = params.get("firstname").toString();
+        this.middlename = params.get("middlename").toString();
+        this.lastname = params.get("lastname").toString();
+        
+        String e = params.get("employeetype").toString();
+        e = e.substring(0, (e.length() - 8)).trim();
+        this.employeetype = e;
+        
+        this.active = (LocalDateTime)(params.get("active"));
+        this.inactive = null;
+        
+        this.badge = (Badge)(params.get("badge"));
+        this.department = (Department)(params.get("department"));
+        this.shift = (Shift)(params.get("shift"));
+        
     }
     
-    public Shift getShift(){
-        return shift;
-    }
+    
 
     @Override
     public String toString() {
-        return "Employee{" + "id=" + id + ", firstname=" + firstname + ", middlename=" 
-                + middlename + ", lastname=" + lastname + ", badge=" + badge + ", active=" 
-                + active + ", department=" + department + ", employee=" + employee+ ", shift=" 
-                + shift + '}';
+        
+        // "ID #14: Donaldson, Kathleen C (#229324A4), Type: Full-Time, Department: Press, Active: 02/02/2017"
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        
+        StringBuilder s = new StringBuilder();
+        
+        s.append("ID #").append(id).append(": ").append(badge.getDescription());
+        s.append(" (#").append(badge.getId()).append("), ");
+        s.append("Type: ").append(employeetype).append(", ");
+        s.append("Department: ").append(department.getDescription()).append(", ");
+        s.append("Active: ").append(dtf.format(active));
+        
+        return s.toString();
+        
     }
     
     
