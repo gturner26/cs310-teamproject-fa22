@@ -105,7 +105,7 @@ public class EmployeeDAO {
 
                     rs = ps.getResultSet();
                     rs.next();
-                    String id = rs.getString("id");
+                    id = rs.getString("id");
                     employee = find(id);
 
                 }
