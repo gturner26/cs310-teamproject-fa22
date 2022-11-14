@@ -35,6 +35,37 @@ public class Punch {
         this.originaltimestamp = timestamp;
         
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getTerminalid() {
+        return terminalid;
+    }
+
+    public Badge getBadge() {
+        return badge;
+    }
+
+    public EventType getPunchtype() {
+        return eventtype;
+    }
+
+    public LocalDateTime getOriginaltimestamp() {
+        return originaltimestamp;
+    }
+
+    public LocalDateTime getAdjustedtimestamp() {
+        return adjustedtimestamp;
+    }
+
+    public PunchAdjustmentType getAdjustmenttype() {
+        return adjustmenttype;
+    }
+    
+    
+    
     
     public void adjust(Shift s) {
         
