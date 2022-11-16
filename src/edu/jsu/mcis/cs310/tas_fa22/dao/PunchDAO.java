@@ -2,6 +2,7 @@ package edu.jsu.mcis.cs310.tas_fa22.dao;
 
 import edu.jsu.mcis.cs310.tas_fa22.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 public class PunchDAO {
@@ -84,7 +85,7 @@ public class PunchDAO {
         return punch;
     }
 
-    public Integer create(Punch p){
+    public Integer create(Punch p1){
         //getBadge()
         //getOriginaltimestamp()
         //getTerminalid()
@@ -109,10 +110,10 @@ public class PunchDAO {
                 if (hasresults) {
                     
                     
-                    ps.setString(1, badgeid);
-                    ps.setString(2, (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(originaltimestamp.getTime()));
-                    ps.setInt(3, 101);
-                    ps.setInt(4, 1);
+                    ps.setInt(1, p1.getId());
+                    ps.setString(2, (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(p1.getOriginaltimestamp()));
+                    ps.setInt(3, p1.getTerminalid());
+                    ps.setInt(4, p1.getPunchtype().ordinal());//check it
                     
                     result = ps.executeUpdate();
                     if (result == 1) {
@@ -147,7 +148,8 @@ public class PunchDAO {
 
         } 
         
-        return punch;
+     return key;
+        
     }
 
 }

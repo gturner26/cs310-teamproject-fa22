@@ -36,11 +36,11 @@ public class Punch {
         
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public Integer getTerminalid() {
+    public int getTerminalid() {
         return terminalid;
     }
 
