@@ -9,7 +9,7 @@ public class PunchDAO {
         
  private static final String QUERY_FIND = "SELECT * FROM event WHERE id = ?";
  private static final String QUERY_LIST = "SELECT * FROM event WHERE badgeid = ? ORDER BY timestamp";
- private static final String QUERY_CREATE = "INSERT INTO event (badgeid, originaltimestamp, terminalid, eventtypeid) VALUES (?,?,?,?)";
+ private static final String QUERY_CREATE = "INSERT INTO event (badgeid, timestamp, terminalid, eventtypeid) VALUES (?,?,?,?)";
 
     private final DAOFactory daoFactory;
     
@@ -88,7 +88,7 @@ public class PunchDAO {
     public Integer create(Punch p1){
         
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        ResultSet rs = null, keys=null;
         
         int key = 0, result = 0;
         
@@ -97,26 +97,21 @@ public class PunchDAO {
             Connection conn = daoFactory.getConnection();
             
             if (conn.isValid(0)){
-                ResultSet keys;
+                
 
                 ps = conn.prepareStatement(QUERY_CREATE, PreparedStatement.RETURN_GENERATED_KEYS);
+                ps.setString(1, p1.getBadge().getId());
+                ps.setTimestamp(2, java.sql.Timestamp.valueOf(p1.getOriginaltimestamp()));
+                ps.setInt(3, p1.getTerminalid());
+                ps.setInt(4, p1.getPunchtype().ordinal());
                 
-                boolean hasresults = ps.execute();
+                result = ps.executeUpdate();
                 
-                if (hasresults) {
-                    
-                    
-                    ps.setInt(1, p1.getId());
-                    ps.setString(2, (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(p1.getOriginaltimestamp()));
-                    ps.setInt(3, p1.getTerminalid());
-                    ps.setInt(4, p1.getPunchtype().ordinal());
-                    
-                    result = ps.executeUpdate();
-                    if (result == 1) {
-                        keys = ps.getGeneratedKeys();
-                    if (keys.next()) { key = keys.getInt(1); }
-                    }
+                if (result == 1) {
+                    keys = ps.getGeneratedKeys();
+                if (keys.next()) { key = keys.getInt(1); }
                 }
+                
             }
             
         }
@@ -126,7 +121,13 @@ public class PunchDAO {
             
         }
         finally {
-
+            if (keys != null) {
+                try {
+                    keys.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage());
+                }
+            }
             if (rs != null) {
                 try {
                     rs.close();
@@ -144,7 +145,7 @@ public class PunchDAO {
 
         } 
         
-     return key;
+        return key;
         
     }
 
