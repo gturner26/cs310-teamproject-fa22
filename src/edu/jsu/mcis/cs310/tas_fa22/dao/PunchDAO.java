@@ -3,7 +3,9 @@ package edu.jsu.mcis.cs310.tas_fa22.dao;
 import edu.jsu.mcis.cs310.tas_fa22.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class PunchDAO {
         
@@ -85,6 +87,14 @@ public class PunchDAO {
         return punch;
     }
 
+    public ArrayList<Punch> list(Badge b, LocalDate date) {
+        
+        ArrayList<Punch> punchlist = new ArrayList<>();
+        
+        return punchlist;
+        
+    }
+    
     public Integer create(Punch p1){
         
         PreparedStatement ps = null;
