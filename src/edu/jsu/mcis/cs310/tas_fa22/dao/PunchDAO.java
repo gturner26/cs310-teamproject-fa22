@@ -86,10 +86,6 @@ public class PunchDAO {
     }
 
     public Integer create(Punch p1){
-        //getBadge()
-        //getOriginaltimestamp()
-        //getTerminalid()
-        //getPunchtype()
         
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -113,7 +109,7 @@ public class PunchDAO {
                     ps.setInt(1, p1.getId());
                     ps.setString(2, (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(p1.getOriginaltimestamp()));
                     ps.setInt(3, p1.getTerminalid());
-                    ps.setInt(4, p1.getPunchtype().ordinal());//check it
+                    ps.setInt(4, p1.getPunchtype().ordinal());
                     
                     result = ps.executeUpdate();
                     if (result == 1) {
