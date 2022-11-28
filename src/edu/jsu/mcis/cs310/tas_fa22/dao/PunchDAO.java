@@ -12,7 +12,7 @@ public class PunchDAO {
         
  private static final String QUERY_FIND = "SELECT * FROM event WHERE id = ?";
  private static final String QUERY_LIST = "SELECT *, DATE(`timestamp`) AS `date` FROM event WHERE badgeid = ? HAVING `date` = ? ORDER BY `timestamp`";
- private static final String QUERY_CREATE = "INSERT INTO event (badgeid, originaltimestamp, terminalid, eventtypeid) VALUES (?,?,?,?)";
+ private static final String QUERY_CREATE = "INSERT INTO event (badgeid, timestamp, terminalid, eventtypeid) VALUES (?,?,?,?)";
 
     private final DAOFactory daoFactory;
     
@@ -53,7 +53,7 @@ public class PunchDAO {
                         Badge b = badgeDAO.find(badgeid);
                         
                         EventType eventtype = EventType.values()[rs.getInt("eventtypeid")];
-                        LocalDateTime originaltimestamp = rs.getTimestamp("timestamp").toLocalDateTime();
+                        LocalDateTime originaltimestamp = rs.getTimestamp("timestamp").toLocalDateTime().withNano(0);
                         punch = new Punch(id, terminalid, b, originaltimestamp, eventtype);
                         
                     }

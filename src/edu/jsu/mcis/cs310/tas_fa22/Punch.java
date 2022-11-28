@@ -22,7 +22,7 @@ public class Punch {
         this.terminalid = terminalid;
         this.badge = badge;
         this.eventtype = eventtype;
-        this.originaltimestamp = LocalDateTime.now();
+        this.originaltimestamp = LocalDateTime.now().withNano(0);
         
     }
     
