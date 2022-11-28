@@ -3,13 +3,16 @@ package edu.jsu.mcis.cs310.tas_fa22.dao;
 import edu.jsu.mcis.cs310.tas_fa22.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class PunchDAO {
         
  private static final String QUERY_FIND = "SELECT * FROM event WHERE id = ?";
- private static final String QUERY_LIST = "SELECT * FROM event WHERE badgeid = ? ORDER BY timestamp";
- private static final String QUERY_CREATE = "INSERT INTO event (badgeid, timestamp, terminalid, eventtypeid) VALUES (?,?,?,?)";
+ private static final String QUERY_LIST = "SELECT *, DATE(`timestamp`) AS `date` FROM event WHERE badgeid = ? HAVING `date` = ? ORDER BY `timestamp`";
+ private static final String QUERY_CREATE = "INSERT INTO event (badgeid, originaltimestamp, terminalid, eventtypeid) VALUES (?,?,?,?)";
 
     private final DAOFactory daoFactory;
     
@@ -85,6 +88,74 @@ public class PunchDAO {
         return punch;
     }
 
+    public ArrayList<Punch> list(Badge b, LocalDate date) {
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+        ArrayList<Punch> punchlist = new ArrayList<>();
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            Connection conn = daoFactory.getConnection();
+            
+            if (conn.isValid(0)){
+                
+                ps = conn.prepareStatement(QUERY_LIST);
+                ps.setString(1, b.getId());
+                ps.setDate(2, java.sql.Date.valueOf(date));
+                
+                boolean hasresults = ps.execute();
+                
+                if (hasresults) {
+                    
+                    rs = ps.getResultSet();
+                    
+                    while (rs.next()) {
+                        
+                        int terminalid = rs.getInt("terminalid");
+                        int id = rs.getInt("id");
+                        EventType eventtype = EventType.values()[rs.getInt("eventtypeid")];
+                        LocalDateTime originaltimestamp = rs.getTimestamp("timestamp").toLocalDateTime();
+                        Punch p = new Punch(id, terminalid, b, originaltimestamp, eventtype);
+                        
+                        punchlist.add(p);
+                        
+                    }
+                }
+            }
+            
+        }
+        catch (SQLException e) {
+            
+            throw new DAOException(e.getMessage());
+            
+        }
+        finally {
+
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage());
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage());
+                }
+            }
+
+        } 
+        
+        return punchlist;
+        
+    }
+    
     public Integer create(Punch p1){
         
         PreparedStatement ps = null;
