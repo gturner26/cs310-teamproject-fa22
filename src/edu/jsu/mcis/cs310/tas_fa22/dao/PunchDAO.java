@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class PunchDAO {
@@ -159,13 +160,12 @@ private static final String QUERY_CREATE = "INSERT INTO event (badgeid, timestam
         
         PunchDAO punchdao = new PunchDAO(daoFactory);
         
-        list<LocalDate> dateslist = begin.datesUntil(end.plusDays(1));
-        
-        for (LocalDate localdate: dateslist){
-            punchlist2.addAll(punchdao.list(badge, localdate));
+        LocalDate current = begin;
+        while (!end.isBefore(current)){
+            punchlist2.addAll(list(badge,current));
+            current = current.plus(1,ChronoUnit.DAYS);
         }
-        
-        
+       
         return punchlist2;
     }
     
