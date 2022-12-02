@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class PunchDAO {
         
- private static final String QUERY_FIND = "SELECT * FROM event WHERE id = ?";
- private static final String QUERY_LIST = "SELECT *, DATE(`timestamp`) AS `date` FROM event WHERE badgeid = ? HAVING `date` = ? ORDER BY `timestamp`";
- private static final String QUERY_CREATE = "INSERT INTO event (badgeid, timestamp, terminalid, eventtypeid) VALUES (?,?,?,?)";
+private static final String QUERY_FIND = "SELECT * FROM event WHERE id = ?";
+private static final String QUERY_LIST = "SELECT *, DATE(`timestamp`) AS `date` FROM event WHERE badgeid = ? HAVING `date` = ? ORDER BY `timestamp`";
+private static final String QUERY_CREATE = "INSERT INTO event (badgeid, timestamp, terminalid, eventtypeid) VALUES (?,?,?,?)";
 
     private final DAOFactory daoFactory;
     
@@ -90,8 +90,6 @@ public class PunchDAO {
 
     public ArrayList<Punch> list(Badge b, LocalDate date) {
         
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        
         ArrayList<Punch> punchlist = new ArrayList<>();
 
         PreparedStatement ps = null;
@@ -154,6 +152,21 @@ public class PunchDAO {
         
         return punchlist;
         
+    }
+    
+    public ArrayList<Punch> list(Badge badge, LocalDate begin, LocalDate end){
+        ArrayList<Punch> punchlist2 = new ArrayList<>();
+        
+        PunchDAO punchdao = new PunchDAO(daoFactory);
+        
+        list<LocalDate> dateslist = begin.datesUntil(end.plusDays(1));
+        
+        for (LocalDate localdate: dateslist){
+            punchlist2.addAll(punchdao.list(badge, localdate));
+        }
+        
+        
+        return punchlist2;
     }
     
     public Integer create(Punch p1){
