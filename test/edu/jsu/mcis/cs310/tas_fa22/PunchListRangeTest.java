@@ -29,7 +29,7 @@ public class PunchListRangeTest {
    @Test
     public void PunchListRangeTest1(){
         
-    }
+    
         BadgeDAO badgeDAO = daoFactory.getBadgeDAO();
         PunchDAO punchDAO = daoFactory.getPunchDAO();
 
@@ -58,7 +58,5 @@ public class PunchListRangeTest {
             s1.append(p.printOriginal());
             s1.append("\n");
         }
-
-
-
-   }
+    }
+}
